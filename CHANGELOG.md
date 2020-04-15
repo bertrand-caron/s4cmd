@@ -1,5 +1,8 @@
 # CHANGELOG
 
+#### v2.2.0
+* `du` returns size in human readable format
+
 #### v2.1.0
 
 - Added `--endpoint_url` flag to allow s4cmd to work with non-s3 object storage services ([#82](https://github.com/bloomreach/s4cmd/pull/82)) 

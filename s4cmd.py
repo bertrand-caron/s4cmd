@@ -48,7 +48,7 @@ else:
 ## Global constants
 ##
 
-S4CMD_VERSION = "2.1.0"
+S4CMD_VERSION = "2.2.0"
 
 PATH_SEP = '/'
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S UTC'
@@ -134,6 +134,13 @@ def log_calls(func):
 ##
 ## Utility functions
 ##
+
+def sizeof_fmt(num, suffix='B'):
+    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+        if abs(num) < 1024.0:
+            return "%6.1f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%6.1f%s%s" % (num, 'Yi', suffix)
 
 def synchronized(func):
   '''Decorator to synchronize function.'''
@@ -1734,7 +1741,7 @@ class CommandHandler(object):
   def du_handler(self, args):
     '''Handler for size command'''
     for src, size in self.s3handler().size(args[1:]):
-      message('%s\t%s' % (size, src))
+      message('%s\t%s' % (sizeof_fmt(int(size)), src))
 
   @log_calls
   def _totalsize_handler(self, args):
